@@ -1,0 +1,112 @@
+'use client';
+
+import { LoaderCircle } from 'lucide-react';
+import { startTransition, useActionState, useEffect, useRef } from 'react';
+import { TextLink } from '@/_components/text-link';
+import { Button } from '@/_components/ui/button';
+import { useSearchParams } from 'next/navigation';
+import { handleEmailVerification } from '@/_actions/handleemailverification';
+import { csrfTokenProps } from '@/_types';
+import { Label } from '@/_components/ui/label';
+import { Input } from '@/_components/ui/input';
+import Link from 'next/link';
+import AppLogoIconSvg from '@/_components/app-logo-icon-svg';
+
+export default function VerifyEmailClient({ csrfToken }: csrfTokenProps) {
+    const searchParams = useSearchParams();
+    const email = searchParams.get('email');
+    const token = searchParams.get('token');
+    const [state, action, pending] = useActionState(handleEmailVerification, undefined);
+
+    // Evita que a verificação automática rode duas vezes seguidas em StrictMode
+    const hasCalledRef = useRef(false);
+
+    useEffect(() => {
+        if (email && token && !hasCalledRef.current) {
+            hasCalledRef.current = true;
+
+            const formData = new FormData();
+            formData.append('email', email);
+            formData.append('token', token);
+            if (csrfToken) formData.append('csrfToken', csrfToken);
+
+            startTransition(() => action(formData));
+        }
+    }, [email, token, csrfToken, action]);
+    return (
+        <div className="space-y-6 w-full 2xl:w-2/4">
+            <div className="flex flex-col items-center gap-2 text-center mx-auto">
+                <Link
+                    href="/"
+                    className="size-16 dark:invert 2xl:hidden rounded-full"
+                >
+                    <AppLogoIconSvg className="rounded-full" />
+                </Link>
+                <h1 className="text-xl font-medium">Check email</h1>
+                <p className="text-muted-foreground text-sm text-balance">
+                    Please verify your email address by clicking the link we just sent you.
+                </p>
+            </div>
+
+            {state?.success && <p className="mb-4 text-center text-sm font-medium text-blue-600">{state.success}</p>}
+            {state?.error && <p className="mb-4 text-center text-sm font-medium text-red-600">{state.error}</p>}
+
+            <form
+                action={action}
+                className="w-full max-w-xs flex flex-col gap-6 mx-auto"
+            >
+                {/* CSRF Token nativo e invisível no formulário */}
+                <input
+                    type="hidden"
+                    name="csrfToken"
+                    value={csrfToken ?? ''}
+                />
+
+                <div className="grid gap-6">
+                    <div className="grid gap-2">
+                        <Label htmlFor="email">Email</Label>
+                        <Input
+                            id="email"
+                            type="email"
+                            name="email"
+                            value={email ?? ''}
+                            readOnly
+                            required
+                            className="block text-gray-400 w-full cursor-default"
+                        />
+                    </div>
+
+                    <div className="grid gap-2">
+                        <Label htmlFor="token">Token</Label>
+                        <Input
+                            id="token"
+                            type="text"
+                            name="token"
+                            value={token ?? ''}
+                            readOnly
+                            required
+                            className="block w-full text-gray-400 cursor-default"
+                        />
+                    </div>
+                </div>
+
+                <Button
+                    type="submit"
+                    variant="secondary"
+                    disabled={pending || Boolean(state?.success) || Boolean(state?.error)}
+                    className="cursor-pointer"
+                >
+                    {pending && <LoaderCircle className="h-4 w-4 animate-spin" />}
+                    Try verifying again
+                </Button>
+
+                <TextLink
+                    href={!state?.success ? "/login" : `/login?status=email%20verified&email=${email}`}
+                    className="mx-auto block text-sm"
+                >
+                    {!state?.success ? 'Log in' : 'Continue to login'}
+                </TextLink>
+            </form>
+        </div>
+    );
+}

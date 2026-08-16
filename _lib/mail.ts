@@ -1,0 +1,71 @@
+import nodemailer from 'nodemailer';
+
+const WEPP_NAME = process.env.NEXT_PUBLIC_APP_NAME;
+const SMTP_HOST = process.env.SMTP_HOST;
+const SMTP_PORT = Number(process.env.SMTP_PORT);
+const SMTP_USER = process.env.SMTP_USER;
+const SMTP_PASS = process.env.SMTP_PASS;
+
+export const transporter = nodemailer.createTransport({ host: SMTP_HOST, port: SMTP_PORT, secure: false, auth: { user: SMTP_USER, pass: SMTP_PASS, } });
+
+export const sendPasswordResetEmail = async (to: string, resetLink: string) => {
+    try {
+        const result = await transporter.sendMail({
+            from: `${WEPP_NAME} <${SMTP_USER}>`,
+            to,
+            subject: 'Password reset',
+            html: `
+                <p>You requested a password reset.</p>
+                <p>Click the link below to create a new password:</p>
+                <a href='${resetLink}'>${resetLink}</a>
+                <p>If you did not request this, please ignore this email.</p>
+            `,
+        });
+        return { ok: true, result };
+
+    } catch (error) {
+        return { ok: false, error };
+    }
+}
+
+export const sendEmailVerification = async (to: string, link: string, linkSession?: string) => {
+    try {
+        const result = await transporter.sendMail({
+            from: `${WEPP_NAME} <${SMTP_USER}>`,
+            to,
+            subject: 'Check your email.',
+            html: `
+                <h2>Email confirmation</h2>
+                <p>Click the link below to confirm your email:</p>
+                <a href='${link}'>${link}</a>
+                <p>Click the link below to confirm your email (System Open):</p>
+                <a href='${linkSession}'>${linkSession}</a>
+                <p>If you did not request this, you can ignore this email.</p>
+            `,
+        });
+        return { ok: true, result };
+    } catch (error) {
+        return { ok: false, error };
+    }
+}
+
+export const sendCreatedEmailAccountVerification = async (to: string, link: string, linkSession?: string) => {
+    try {
+        const result = await transporter.sendMail({
+            from: `${WEPP_NAME} <${SMTP_USER}>`,
+            to,
+            subject: 'Check your email.',
+            html: `
+                <h2>Your account has been successfully created!</h2>
+                <p>Click the link below to confirm your email; if the email is not confirmed within 30 days, you will not be able to access your account.</p>
+                <a href='${link}'>${link}</a>
+                <p>Click the link below to confirm your email (System opens in the same browser):</p>
+                <a href='${linkSession}'>${linkSession}</a>
+                <p>If you did not request this, you can ignore this email.</p>
+            `,
+        });
+        return { ok: true, result };
+    } catch (error) {
+        return { ok: false, error };
+    }
+}

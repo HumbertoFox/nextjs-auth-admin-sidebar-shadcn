@@ -23,17 +23,17 @@ export function UserActionButtons({ user, csrfToken }: UserActionButtonsProps) {
                 </Link>
 
                 <Dialog>
-                    <DialogTrigger render={
+                    <DialogTrigger asChild>
                         <button
                             type="button"
                             title={`Delete ${user.name}`}
+                            className="cursor-pointer"
                         >
                             <UserX
                                 aria-label={`Delete ${user.name}`}
                                 className="size-5 text-red-600 cursor-pointer hover:text-red-500 duration-300"
                             />
                         </button>
-                    }>
                     </DialogTrigger>
                     <DialogContent>
                         <DialogTitle>Are you sure?</DialogTitle>
@@ -41,7 +41,7 @@ export function UserActionButtons({ user, csrfToken }: UserActionButtonsProps) {
                             After confirmation, user {user.name} will no longer be able to access the system!
                         </DialogDescription>
                         <DialogFooter>
-                            <DialogClose render={
+                            <DialogClose asChild>
                                 <Button
                                     type="button"
                                     variant="secondary"
@@ -49,7 +49,6 @@ export function UserActionButtons({ user, csrfToken }: UserActionButtonsProps) {
                                 >
                                     Cancel
                                 </Button>
-                            }>
                             </DialogClose>
                             <form action={deleteUserById}>
                                 <input
@@ -57,11 +56,13 @@ export function UserActionButtons({ user, csrfToken }: UserActionButtonsProps) {
                                     name="csrfToken"
                                     value={csrfToken}
                                 />
+
                                 <input
                                     type="hidden"
                                     name="userId"
                                     value={user.id}
                                 />
+
                                 <Button
                                     type="submit"
                                     variant="destructive"
@@ -79,7 +80,7 @@ export function UserActionButtons({ user, csrfToken }: UserActionButtonsProps) {
 
     return (
         <Dialog>
-            <DialogTrigger render={
+            <DialogTrigger asChild>
                 <button
                     type="button"
                     title={`Activate ${user.name}`}
@@ -90,7 +91,6 @@ export function UserActionButtons({ user, csrfToken }: UserActionButtonsProps) {
                         className="size-5 text-red-600 hover:text-green-500 duration-300"
                     />
                 </button>
-            }>
             </DialogTrigger>
             <DialogContent>
                 <DialogTitle>Are you sure?</DialogTitle>
@@ -98,7 +98,7 @@ export function UserActionButtons({ user, csrfToken }: UserActionButtonsProps) {
                     After confirmation, you will activate the user account {user.name}!
                 </DialogDescription>
                 <DialogFooter>
-                    <DialogClose render={
+                    <DialogClose asChild>
                         <Button
                             type="button"
                             variant="destructive"
@@ -106,7 +106,6 @@ export function UserActionButtons({ user, csrfToken }: UserActionButtonsProps) {
                         >
                             Cancel
                         </Button>
-                    }>
                     </DialogClose>
                     <form action={reactivateAdminUserById}>
                         <input
@@ -114,11 +113,13 @@ export function UserActionButtons({ user, csrfToken }: UserActionButtonsProps) {
                             name="csrfToken"
                             value={csrfToken}
                         />
+
                         <input
                             type="hidden"
                             name="userId"
                             value={user.id}
                         />
+                        
                         <Button
                             type="submit"
                             variant="outline"

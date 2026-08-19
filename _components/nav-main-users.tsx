@@ -21,19 +21,18 @@ export function NavMainUsers({ items = [] }: { items: NavMainItemProps[] }) {
                 {items.map((item) => (
                     <SidebarMenuItem key={item.title}>
                         <SidebarMenuButton
-                            render={
-                                <Link
-                                    href={item.href}
-                                    prefetch
-                                    onClick={handleLinkClick}
-                                >
-                                    {item.icon && <item.icon />}
-                                    <span>{item.title}</span>
-                                </Link>
-                            }
+                            asChild
                             isActive={item.href === pathname}
                             tooltip={{ children: item.title }}
                         >
+                            <Link
+                                href={item.href}
+                                prefetch
+                                onClick={handleLinkClick}
+                            >
+                                {item.icon && <item.icon />}
+                                <span>{item.title}</span>
+                            </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 ))}

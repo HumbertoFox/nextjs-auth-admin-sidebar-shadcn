@@ -24,11 +24,10 @@ export function DashboardSidebarHeader({ items }: DashboardSidebarHeaderProps) {
                                 {index === lastIndex || !item.href ? (
                                     <BreadcrumbPage className="cursor-default">{item.text}</BreadcrumbPage>
                                 ) : (
-                                    <BreadcrumbLink render={
+                                    <BreadcrumbLink asChild>
                                         <Link href={item.href}>
                                             {item.text}
                                         </Link>
-                                    }>
                                     </BreadcrumbLink>
                                 )}
                             </BreadcrumbItem>

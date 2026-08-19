@@ -21,7 +21,10 @@ export function NavMainAdmins({ items = [] }: { items: NavMainItemProps[] }) {
                 {items.map((item) => (
                     <SidebarMenuItem key={item.title}>
                         <SidebarMenuButton
-                            render={
+                            asChild
+                            isActive={item.href === pathname}
+                            tooltip={{ children: item.title }}
+                        >
                             <Link
                                 href={item.href}
                                 prefetch
@@ -30,10 +33,6 @@ export function NavMainAdmins({ items = [] }: { items: NavMainItemProps[] }) {
                                 {item.icon && <item.icon />}
                                 <span>{item.title}</span>
                             </Link>
-                            }
-                            isActive={item.href === pathname}
-                            tooltip={{ children: item.title }}
-                        >
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 ))}

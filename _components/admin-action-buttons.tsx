@@ -24,14 +24,13 @@ export function AdminActionButtons({ admin, csrfToken, isLoggedAdmin }: AdminAct
 
                 {!isLoggedAdmin && (
                     <Dialog>
-                        <DialogTrigger render={
+                        <DialogTrigger asChild>
                             <button type="button" title={`Delete ${admin.name}`}>
                                 <UserRoundX
                                     aria-label={`Delete ${admin.name}`}
                                     className="size-5 text-red-600 cursor-pointer hover:text-red-500 duration-300"
                                 />
                             </button>
-                        }>
                         </DialogTrigger>
                         <DialogContent>
                             <DialogTitle>Are you sure?</DialogTitle>
@@ -39,7 +38,7 @@ export function AdminActionButtons({ admin, csrfToken, isLoggedAdmin }: AdminAct
                                 After confirmation, admin user {admin.name} will no longer be able to access the system!
                             </DialogDescription>
                             <DialogFooter>
-                                <DialogClose render={
+                                <DialogClose asChild>
                                     <Button
                                         type="button"
                                         variant="secondary"
@@ -47,7 +46,6 @@ export function AdminActionButtons({ admin, csrfToken, isLoggedAdmin }: AdminAct
                                     >
                                         Cancel
                                     </Button>
-                                }>
                                 </DialogClose>
                                 <form action={deleteUserById}>
                                     <input
@@ -80,7 +78,7 @@ export function AdminActionButtons({ admin, csrfToken, isLoggedAdmin }: AdminAct
 
     return (
         <Dialog>
-            <DialogTrigger render={
+            <DialogTrigger asChild>
                 <button
                     type="button"
                     title={`Activate ${admin.name}`}
@@ -91,7 +89,6 @@ export function AdminActionButtons({ admin, csrfToken, isLoggedAdmin }: AdminAct
                         className="size-5 text-red-600 hover:text-green-500 duration-300"
                     />
                 </button>
-            }>
             </DialogTrigger>
             <DialogContent>
                 <DialogTitle>Are you sure?</DialogTitle>
@@ -99,7 +96,7 @@ export function AdminActionButtons({ admin, csrfToken, isLoggedAdmin }: AdminAct
                     After confirmation, you will activate the admin user account {admin.name}!
                 </DialogDescription>
                 <DialogFooter>
-                    <DialogClose render={
+                    <DialogClose asChild>
                         <Button
                             type="button"
                             variant="destructive"
@@ -107,7 +104,6 @@ export function AdminActionButtons({ admin, csrfToken, isLoggedAdmin }: AdminAct
                         >
                             Cancel
                         </Button>
-                    }>
                     </DialogClose>
                     <form action={reactivateAdminUserById}>
                         <input

@@ -219,13 +219,7 @@ export default function RegisterUpdateUserForm({ user, isEdit, titleForm, valueB
                             required
                             name="role"
                             value={data.role}
-                            onValueChange={(value) => {
-                                if (value === null) return;
-                                setData((prev) => ({
-                                    ...prev,
-                                    role: value
-                                }));
-                            }}
+                            onValueChange={(value: UserRole) => setData((prev) => ({ ...prev, role: value }))}
                             disabled={pending}
                         >
                             <SelectTrigger
@@ -233,9 +227,7 @@ export default function RegisterUpdateUserForm({ user, isEdit, titleForm, valueB
                                 title="Select the account type!"
                                 tabIndex={6}
                             >
-                                <SelectValue placeholder="Account type">
-                                    {roleLabels[data.role as UserRole] ?? 'Account type'}
-                                </SelectValue>
+                                <SelectValue placeholder="Account type" />
                             </SelectTrigger>
                             <SelectContent>
                                 {Object.entries(roleLabels).map(([value, label]) => (

@@ -44,7 +44,7 @@ export default function DashboardSidebar({ user, userType, ...props }: Dashboard
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton size="lg" render={
+                        <SidebarMenuButton size="lg" asChild>
                             <Link
                                 href="/dashboard"
                                 onClick={handleLinkClick}
@@ -52,7 +52,6 @@ export default function DashboardSidebar({ user, userType, ...props }: Dashboard
                             >
                                 <AppLogoSvg />
                             </Link>
-                        }>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>

@@ -36,11 +36,10 @@ export default function DeleteUser({ csrfToken }: { csrfToken?: string; }) {
                 </div>
 
                 <Dialog>
-                    <DialogTrigger render={
+                    <DialogTrigger asChild>
                         <Button variant="destructive">
                             Delete account
                         </Button>
-                    }>
                     </DialogTrigger>
                     <DialogContent>
                         <DialogTitle>Are you sure you want to delete your account?</DialogTitle>
@@ -84,14 +83,13 @@ export default function DeleteUser({ csrfToken }: { csrfToken?: string; }) {
                             </div>
 
                             <DialogFooter className="gap-2">
-                                <DialogClose render={
+                                <DialogClose asChild>
                                     <Button
                                         variant="secondary"
                                         onClick={handleClose}
                                     >
                                         Cancel
                                     </Button>
-                                }>
                                 </DialogClose>
 
                                 <Button

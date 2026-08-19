@@ -52,7 +52,7 @@ export default function SettingsPageClient({ user }: UserSettingsClientProps) {
                 <span>{formatDate(user.created_at)}</span>
             </div>
             <div>
-                <strong>User updated on : </strong>
+                <strong>Last access: </strong>
                 <span>{formatDate(user.updated_at)}</span>
             </div>
         </>

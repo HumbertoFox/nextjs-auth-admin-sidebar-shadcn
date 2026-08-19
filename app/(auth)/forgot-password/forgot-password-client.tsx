@@ -68,7 +68,7 @@ export default function ForgotPasswordClient({ csrfToken }: csrfTokenProps) {
                         <Button
                             type="submit"
                             disabled={pending || Boolean(state?.message)}
-                            className="w-full"
+                            className="w-full cursor-pointer"
                         >
                             {pending && <LoaderCircle className="h-4 w-4 animate-spin" />}
                             Send password reset link

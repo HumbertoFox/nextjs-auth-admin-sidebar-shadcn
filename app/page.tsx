@@ -2,6 +2,7 @@ import HomeMainComponent from '@/_components/home-main';
 import { buttonVariants } from '@/_components/ui/button';
 import { adminRepository } from '@/_lib/adminrepository';
 import { getSession } from '@/_lib/session';
+import { cn } from '@/_lib/utils';
 import Link from 'next/link';
 
 export default async function HomePage() {
@@ -15,7 +16,7 @@ export default async function HomePage() {
         {session ? (
           <Link
             href="/dashboard"
-            className={buttonVariants({ variant: "outline", size: "sm" })}
+            className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
           >
             Dashboard
           </Link>
@@ -24,7 +25,7 @@ export default async function HomePage() {
             {isAdmin && (
               <Link
                 href="/login"
-                className={buttonVariants({ variant: "outline", size: "sm" })}
+                className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
               >
                 Log in
               </Link>
@@ -32,7 +33,7 @@ export default async function HomePage() {
             {!isAdmin && (
               <Link
                 href="/register"
-                className={buttonVariants({ variant: "outline", size: "sm" })}
+                className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
               >
                 Sign up
               </Link>

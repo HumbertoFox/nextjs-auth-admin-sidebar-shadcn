@@ -161,7 +161,7 @@ export function LoginClient({ csrfToken }: csrfTokenProps) {
 
                     <Button
                         type="submit"
-                        className="mt-4 w-full"
+                        className="mt-4 w-full cursor-pointer"
                         tabIndex={3}
                         disabled={pending || secondsLeft !== null}
                     >

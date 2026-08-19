@@ -139,7 +139,7 @@ export default function ResetPasswordClient({ csrfToken }: csrfTokenProps) {
                     <Button
                         type="submit"
                         disabled={pending}
-                        className="mt-4 w-full"
+                        className="mt-4 w-full cursor-pointer"
                     >
                         {pending && <LoaderCircle className="h-4 w-4 animate-spin" />}
                         Reset password

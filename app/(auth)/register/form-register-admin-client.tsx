@@ -206,7 +206,7 @@ export default function RegisterAdminClient({ TitleIntl, csrfToken }: { TitleInt
                         tabIndex={6}
                         disabled={pending || Boolean(imageError)}
                         aria-busy={pending || Boolean(imageError)}
-                        className="mt-2 w-full"
+                        className="mt-2 w-full cursor-pointer"
                     >
                         {pending && <LoaderCircle className="h-4 w-4 animate-spin" />}
                         Create an account

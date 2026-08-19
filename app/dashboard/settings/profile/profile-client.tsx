@@ -11,6 +11,7 @@ import { emailVerifiedChecked } from '@/_actions/emailverified';
 import Image from 'next/image';
 import { handleImageChange } from '@/_lib/handleimagechange';
 import { ProfileForm, ProfileFormClientProps } from '@/_types';
+import { cn } from '@/_lib/utils';
 
 const providers: Record<string, { name: string; url: string }> = {
     'gmail.com': { name: 'Gmail', url: 'https://mail.google.com' },
@@ -136,7 +137,7 @@ export default function ProfilePageClient({ name, email, avatar, mustVerifyEmail
                                     <a
                                         href={provider.url}
                                         target="_blank"
-                                        className={buttonVariants({ variant: "outline", size: "sm" })}
+                                        className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
                                         rel="noopener noreferrer"
                                     >
                                         Open {provider.name}

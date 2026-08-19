@@ -233,11 +233,16 @@ export default function RegisterUpdateUserForm({ user, isEdit, titleForm, valueB
                                 title="Select the account type!"
                                 tabIndex={6}
                             >
-                                <SelectValue placeholder="Account type" />
+                                <SelectValue placeholder="Account type">
+                                    {roleLabels[data.role as UserRole] ?? 'Account type'}
+                                </SelectValue>
                             </SelectTrigger>
                             <SelectContent>
                                 {Object.entries(roleLabels).map(([value, label]) => (
-                                    <SelectItem key={value} value={value}>
+                                    <SelectItem
+                                        key={value}
+                                        value={value}
+                                    >
                                         {label}
                                     </SelectItem>
                                 ))}
@@ -251,7 +256,7 @@ export default function RegisterUpdateUserForm({ user, isEdit, titleForm, valueB
                         tabIndex={6}
                         disabled={pending || Boolean(imageError)}
                         aria-busy={pending || Boolean(imageError)}
-                        className="mt-2 w-full"
+                        className="mt-2 w-full cursor-pointer"
                     >
                         {pending && <LoaderCircle className="h-4 w-4 animate-spin" />}
                         {valueButton}

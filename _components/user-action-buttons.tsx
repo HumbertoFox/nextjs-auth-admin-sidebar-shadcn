@@ -24,7 +24,10 @@ export function UserActionButtons({ user, csrfToken }: UserActionButtonsProps) {
 
                 <Dialog>
                     <DialogTrigger render={
-                        <button type="button" title={`Delete ${user.name}`}>
+                        <button
+                            type="button"
+                            title={`Delete ${user.name}`}
+                        >
                             <UserX
                                 aria-label={`Delete ${user.name}`}
                                 className="size-5 text-red-600 cursor-pointer hover:text-red-500 duration-300"
@@ -42,6 +45,7 @@ export function UserActionButtons({ user, csrfToken }: UserActionButtonsProps) {
                                 <Button
                                     type="button"
                                     variant="secondary"
+                                    className="cursor-pointer"
                                 >
                                     Cancel
                                 </Button>
@@ -61,6 +65,7 @@ export function UserActionButtons({ user, csrfToken }: UserActionButtonsProps) {
                                 <Button
                                     type="submit"
                                     variant="destructive"
+                                    className="cursor-pointer"
                                 >
                                     Yes, delete!
                                 </Button>
@@ -97,6 +102,7 @@ export function UserActionButtons({ user, csrfToken }: UserActionButtonsProps) {
                         <Button
                             type="button"
                             variant="destructive"
+                            className="cursor-pointer"
                         >
                             Cancel
                         </Button>
@@ -116,6 +122,7 @@ export function UserActionButtons({ user, csrfToken }: UserActionButtonsProps) {
                         <Button
                             type="submit"
                             variant="outline"
+                            className="cursor-pointer"
                         >
                             Yes, activate!
                         </Button>

@@ -43,15 +43,32 @@ export function AdminActionButtons({ admin, csrfToken, isLoggedAdmin }: AdminAct
                                     <Button
                                         type="button"
                                         variant="secondary"
+                                        className="cursor-pointer"
                                     >
                                         Cancel
                                     </Button>
                                 }>
                                 </DialogClose>
                                 <form action={deleteUserById}>
-                                    <input type="hidden" name="csrfToken" value={csrfToken} />
-                                    <input type="hidden" name="userId" value={admin.id} />
-                                    <Button type="submit" variant="destructive">Yes, delete!</Button>
+                                    <input
+                                        type="hidden"
+                                        name="csrfToken"
+                                        value={csrfToken}
+                                    />
+
+                                    <input
+                                        type="hidden"
+                                        name="userId"
+                                        value={admin.id}
+                                    />
+
+                                    <Button
+                                        type="submit"
+                                        variant="destructive"
+                                        className="cursor-pointer"
+                                    >
+                                        Yes, delete!
+                                    </Button>
                                 </form>
                             </DialogFooter>
                         </DialogContent>
@@ -86,6 +103,7 @@ export function AdminActionButtons({ admin, csrfToken, isLoggedAdmin }: AdminAct
                         <Button
                             type="button"
                             variant="destructive"
+                            className="cursor-pointer"
                         >
                             Cancel
                         </Button>
@@ -105,6 +123,7 @@ export function AdminActionButtons({ admin, csrfToken, isLoggedAdmin }: AdminAct
                         <Button
                             type="submit"
                             variant="outline"
+                            className="cursor-pointer"
                         >
                             Yes, activate!
                         </Button>

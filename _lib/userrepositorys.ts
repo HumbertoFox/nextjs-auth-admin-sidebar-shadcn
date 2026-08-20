@@ -153,9 +153,9 @@ export const userRepository = {
     },
 
     // -------------------------------------------------------------------------
-    // Busca paginada de usuários com role USER
+    // Busca paginada de usuários por role
     // -------------------------------------------------------------------------
-    async findUsersPaginated(page: number, pageSize: number, client?: QueryExecutor) {
+    async findUsersPaginated(page: number, pageSize: number, role: UserRole, client?: QueryExecutor) {
         const executor = client ?? pool;
         const offset = (page - 1) * pageSize;
 
@@ -166,53 +166,21 @@ export const userRepository = {
                 email,
                 deleted_at
             FROM users_public
-            WHERE role = 'USER'
+            WHERE role = $1 
             ORDER BY created_at
-            LIMIT $1
-            OFFSET $2
+            LIMIT $2
+            OFFSET $3
         `,
-            [pageSize, offset]
+            [role, pageSize, offset]
         );
 
         const countResult = await executor.query<{ count: string }>(`
             SELECT COUNT(*)
             FROM users_public
-            WHERE role = 'USER'
-        `);
-
-        return [
-            usersResult.rows,
-            parseInt(countResult.rows[0].count, 10),
-        ] as const;
-    },
-
-    // -------------------------------------------------------------------------
-    // Busca paginada de usuários com role CLIENT
-    // -------------------------------------------------------------------------
-    async findClientsPaginated(page: number, pageSize: number, client?: QueryExecutor) {
-        const executor = client ?? pool;
-        const offset = (page - 1) * pageSize;
-
-        const usersResult = await executor.query<UserDetailsProps>(`
-            SELECT
-                id,
-                name,
-                email,
-                deleted_at
-            FROM users_public
-            WHERE role = 'CLIENT'
-            ORDER BY created_at
-            LIMIT $1
-            OFFSET $2
+            WHERE role = $1
         `,
-            [pageSize, offset]
+            [role]
         );
-
-        const countResult = await executor.query<{ count: string }>(`
-            SELECT COUNT(*)
-            FROM users_public
-            WHERE role = 'CLIENT'
-        `);
 
         return [
             usersResult.rows,

@@ -29,7 +29,7 @@ export default async function ClientsPage(props: { searchParams?: Promise<{ page
     const rawPage = parseInt(String(params?.page ?? '1'), 10);
     const currentPage = Number.isNaN(rawPage) ? 1 : Math.max(1, rawPage);
     const [[clients, total], csrfToken, user] = await Promise.all([
-        userRepository.findClientsPaginated(currentPage, pageSize),
+        userRepository.findUsersPaginated(currentPage, pageSize, 'CLIENT'),
         getCsrfToken(),
         getUser()
     ]);

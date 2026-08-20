@@ -30,6 +30,7 @@ export default async function Update({ params }: { params: Promise<{ id: string 
                     isEdit={true}
                     titleForm="Update User Acount"
                     valueButton="Update Account"
+                    role={user.role}
                     csrfToken={csrfToken}
                 />
             </Suspense>

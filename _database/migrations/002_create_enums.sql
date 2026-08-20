@@ -4,6 +4,7 @@
 -- Values:
 --   - ADMIN: Acesso administrativo completo
 --   - USER: Acesso padrão de usuário
+--   - CLIENT: Acesso de cliente
 -- ============================================================================
 DO $$
 BEGIN
@@ -14,7 +15,8 @@ BEGIN
     ) THEN
         CREATE TYPE user_role AS ENUM (
             'ADMIN',
-            'USER'
+            'USER',
+            'CLIENT'
         );
     END IF;
 END$$;

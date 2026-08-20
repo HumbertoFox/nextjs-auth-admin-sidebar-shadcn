@@ -3,7 +3,7 @@ import path from 'path';
 import crypto from 'crypto';
 import pkg from 'pg';
 import 'dotenv/config';
-import { rawPool } from '../_lib/db';
+import { rawPool } from '../_lib/db.ts';
 
 const { Pool } = pkg;
 

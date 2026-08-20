@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import pkg from 'pg';
 import 'dotenv/config';
-import { rawPool } from '../_lib/db';
+import { rawPool } from '../_lib/db.ts';
 
 const { Pool } = pkg;
 

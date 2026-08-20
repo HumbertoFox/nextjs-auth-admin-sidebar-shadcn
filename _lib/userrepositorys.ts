@@ -187,6 +187,40 @@ export const userRepository = {
     },
 
     // -------------------------------------------------------------------------
+    // Busca paginada de usuários com role CLIENT
+    // -------------------------------------------------------------------------
+    async findClientsPaginated(page: number, pageSize: number, client?: QueryExecutor) {
+        const executor = client ?? pool;
+        const offset = (page - 1) * pageSize;
+
+        const usersResult = await executor.query<UserDetailsProps>(`
+            SELECT
+                id,
+                name,
+                email,
+                deleted_at
+            FROM users_public
+            WHERE role = 'CLIENT'
+            ORDER BY created_at
+            LIMIT $1
+            OFFSET $2
+        `,
+            [pageSize, offset]
+        );
+
+        const countResult = await executor.query<{ count: string }>(`
+            SELECT COUNT(*)
+            FROM users_public
+            WHERE role = 'CLIENT'
+        `);
+
+        return [
+            usersResult.rows,
+            parseInt(countResult.rows[0].count, 10),
+        ] as const;
+    },
+
+    // -------------------------------------------------------------------------
     // Busca session_version para validação de sessão
     // -------------------------------------------------------------------------
     async findSessionVersion(id: string, client?: QueryExecutor): Promise<{ session_version: number; must_change_password: boolean } | null> {

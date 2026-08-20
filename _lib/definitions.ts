@@ -44,7 +44,7 @@ export function getSignUpUpdateSchema(formData: FormData) {
             ? z.string().max(72, 'The password must be at most 72 characters long.').optional()
             : z.string().min(1, 'Please confirm your password.').max(72, 'The password must be at most 72 characters long.'),
         role: z.enum(UserRolesZod, {
-            error: 'The role must be USER or ADMINISTRATOR.'
+            error: 'The role must be USER, ADMINISTRATOR or CLIENT.'
         })
     })
         .superRefine((data, ctx) => {

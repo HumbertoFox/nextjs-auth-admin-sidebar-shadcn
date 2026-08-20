@@ -19,12 +19,32 @@ import { sendCreatedEmailAccountVerification } from '@/_lib/mail';
 
 export async function createUpdateAdminUser(_: FormStateCreateUpdateAdminUser, formData: FormData): Promise<FormStateCreateUpdateAdminUser> {
     const sessionUser = await getUser();
-    if (!sessionUser || sessionUser.role !== 'ADMIN') return { warning: 'You do not have permission to perform this action.' };
+    if (!sessionUser || !['ADMIN', 'USER'].includes(sessionUser.role)) return { warning: 'You do not have permission to perform this action.' };
 
     const csrfToken = formData.get('csrfToken') as string;
     const isValidCsrf = await validateCsrfToken(csrfToken);
 
     if (!isValidCsrf) return { warning: 'Invalid security token. Please refresh the page and try again.' };
+
+    function revalidatePaths(role: string) {
+        if (role === 'ADMIN') {
+            revalidatePath('/dashboard/admins');
+        } else if (role === 'USER') {
+            revalidatePath('/dashboard/admins/users');
+        } else {
+            revalidatePath('/dashboard/user/clients');
+        }
+    }
+
+    function getRedirectPath(role: UserRole): string {
+        if (role === 'ADMIN') {
+            return '/dashboard/admins';
+        } else if (role === 'USER') {
+            return '/dashboard/admins/users';
+        } else {
+            return '/dashboard/user/clients';
+        }
+    }
 
     const schema = getSignUpUpdateSchema(formData);
 
@@ -37,19 +57,10 @@ export async function createUpdateAdminUser(_: FormStateCreateUpdateAdminUser, f
     });
 
     const id = formData.get('id') as string | undefined;
+
+    if (sessionUser.role === 'USER' && id) return { warning: 'You do not have permission to update this user.' };
+
     const file = formData.get('file') as File | null;
-
-    function revalidatePaths(role: string) {
-        if (role === 'ADMIN') {
-            revalidatePath('/dashboard/admins');
-        } else {
-            revalidatePath('/dashboard/admins/users');
-        }
-    }
-
-    function getRedirectPath(role: string) {
-        return role === 'ADMIN' ? '/dashboard/admins' : '/dashboard/admins/users';
-    }
 
     if (!validatedFields.success) return { errors: z.flattenError(validatedFields.error).fieldErrors };
 
@@ -150,6 +161,8 @@ export async function createUpdateAdminUser(_: FormStateCreateUpdateAdminUser, f
             resultUser = { id: updatedUser.id, role: updatedUser.role };
             redirectPath = getRedirectPath(updatedUser.role);
         } else {
+            if (sessionUser.role !== 'ADMIN' && role !== 'CLIENT') return { warning: 'You do not have permission to create a user with this role.' };
+
             const existingUser = await userRepository.findByEmail(email, client);
             if (existingUser) {
                 await client.query('ROLLBACK');

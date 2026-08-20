@@ -16,20 +16,47 @@ type DashboardSidebarProps = React.ComponentProps<typeof Sidebar> & {
 }
 
 const adminNavItems: NavMainItemProps[] = [
-    { title: 'Admins', href: '/dashboard/admins', icon: UserRoundCog },
-    { title: 'Users', href: '/dashboard/admins/users', icon: UsersRound },
-    { title: 'Register User', href: '/dashboard/admins/register', icon: UserRoundPlus }
-];
-const userNavItems: NavMainItemProps[] = [
-    { title: 'User', href: '/dashboard/user', icon: UserRound }
+    {
+        title: 'Admins',
+        href: '/dashboard/admins',
+        icon: UserRoundCog
+    },
+    {
+        title: 'Users',
+        href: '/dashboard/admins/users',
+        icon: UsersRound
+    }
 ];
 const usersDashboardNavItems: NavMainItemProps[] = [
-    { title: 'Dashboard', href: '/dashboard', icon: LayoutGrid }
+    {
+        title: 'Dashboard',
+        href: '/dashboard',
+        icon: LayoutGrid
+    }
 ];
 
 export default function DashboardSidebar({ user, userType, ...props }: DashboardSidebarProps) {
     const { isMobile, setOpenMobile } = useSidebar();
-
+    const canViewAdminUserNav = ['ADMIN', 'USER'].includes(userType);
+    const userNavItems: NavMainItemProps[] = [
+        {
+            title: 'User',
+            href: '/dashboard/user',
+            icon: UserRound
+        },
+        ...(canViewAdminUserNav ? [
+            {
+                title: 'Register User',
+                href: '/dashboard/user/register',
+                icon: UserRoundPlus
+            },
+            {
+                title: 'Clients',
+                href: '/dashboard/user/clients',
+                icon: UserRoundPlus
+            }
+        ] : [])
+    ];
     const handleLinkClick = () => {
         if (isMobile) {
             setOpenMobile(false);

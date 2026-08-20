@@ -1,10 +1,10 @@
 import type { LucideIcon } from 'lucide-react';
 
-export type UserRole = 'USER' | 'ADMIN';
+export type UserRole = 'USER' | 'ADMIN' | 'CLIENT';
 
-export const UserRolesZod: UserRole[] = ['USER', 'ADMIN'];
+export const UserRolesZod: UserRole[] = ['USER', 'ADMIN', 'CLIENT'];
 
-export const roleLabels: Record<UserRole, string> = { ADMIN: 'Admin', USER: 'User' }
+export const roleLabels: Record<UserRole, string> = { ADMIN: 'Admin', USER: 'User', CLIENT: 'Client' };
 
 export const MIME_TO_EXT: Record<string, string> = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }
 
@@ -115,6 +115,7 @@ export type UserFormProps = ProfileForm & {
 
 export type RegisterFormUserProps = csrfTokenProps & {
     user?: UserFormProps;
+    readonly role: UserRole;
     readonly isEdit?: boolean;
     readonly titleForm: string;
     readonly valueButton?: string;
@@ -138,6 +139,16 @@ export type UserActionsProps = {
 
 export type UserActionButtonsProps = {
     user: {
+        readonly id: string;
+        readonly name: string;
+        readonly email: string;
+        readonly deleted_at?: string | null;
+    };
+    readonly csrfToken?: string;
+}
+
+export type ClientActionButtonsProps = {
+    client: {
         readonly id: string;
         readonly name: string;
         readonly email: string;

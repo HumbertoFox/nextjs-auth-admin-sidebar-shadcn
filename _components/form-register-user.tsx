@@ -13,7 +13,7 @@ import { RegisterFormUserProps, roleLabels, UserFormProps, UserRole } from '@/_t
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/_components/ui/select';
 import { PasswordChecklist } from '@/_components/password-checklist';
 
-export default function RegisterUpdateUserForm({ user, isEdit, titleForm, valueButton, csrfToken }: RegisterFormUserProps) {
+export default function RegisterUpdateUserForm({ user, isEdit, titleForm, valueButton, role, csrfToken }: RegisterFormUserProps) {
     const [state, action, pending] = useActionState(createUpdateAdminUser, undefined);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     const [imageError, setImageError] = useState<string | null>(null);
@@ -23,12 +23,15 @@ export default function RegisterUpdateUserForm({ user, isEdit, titleForm, valueB
         id: user?.id ?? '',
         name: user?.name ?? '',
         email: user?.email ?? '',
-        role: user?.role ?? 'USER',
+        role: user?.role ?? 'CLIENT',
         password: '',
         password_confirmation: '',
         avatar: user?.avatar ?? undefined
     });
 
+    const avaliableRoles = Object.entries(roleLabels).filter(([value]) =>
+        role === 'USER' ? value === 'CLIENT' : true
+    );
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setData(prev => ({ ...prev, [name]: value }));
@@ -213,35 +216,44 @@ export default function RegisterUpdateUserForm({ user, isEdit, titleForm, valueB
                         {state?.errors?.password_confirmation?.[0] && <InputError message={state.errors.password_confirmation[0]} />}
                     </div>
 
-                    <div className="grid gap-2">
-                        <Label htmlFor="role">Account type</Label>
-                        <Select
-                            required
-                            name="role"
-                            value={data.role}
-                            onValueChange={(value: UserRole) => setData((prev) => ({ ...prev, role: value }))}
-                            disabled={pending}
-                        >
-                            <SelectTrigger
-                                id="role"
-                                title="Select the account type!"
-                                tabIndex={6}
+                    {role === 'ADMIN' ? (
+                        <div className="grid gap-2">
+                            <Label htmlFor="role">Account type</Label>
+                            <Select
+                                required
+                                name="role"
+                                value={data.role}
+                                onValueChange={(value: UserRole) => setData((prev) => ({ ...prev, role: value }))}
+                                disabled={pending}
                             >
-                                <SelectValue placeholder="Account type" />
-                            </SelectTrigger>
-                            <SelectContent>
-                                {Object.entries(roleLabels).map(([value, label]) => (
-                                    <SelectItem
-                                        key={value}
-                                        value={value}
-                                    >
-                                        {label}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                        {state?.errors?.role?.[0] && <InputError message={state.errors.role[0]} />}
-                    </div>
+                                <SelectTrigger
+                                    id="role"
+                                    title="Select the account type!"
+                                    tabIndex={6}
+                                >
+                                    <SelectValue placeholder="Account type" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {avaliableRoles.map(([value, label]) => (
+                                        <SelectItem
+                                            key={value}
+                                            value={value}
+                                        >
+                                            {label}
+                                        </SelectItem>
+                                    ))}
+                                </SelectContent>
+                            </Select>
+                            {state?.errors?.role?.[0] && <InputError message={state.errors.role[0]} />}
+                        </div>
+                    ) : (
+                        <input
+                            type="hidden"
+                            id="role"
+                            name="role"
+                            value="CLIENT"
+                        />
+                    )}
 
                     <Button
                         type="submit"

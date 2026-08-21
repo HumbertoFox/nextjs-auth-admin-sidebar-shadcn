@@ -9,6 +9,8 @@ export default async function proxy(req: NextRequest) {
 
   const isProtectedRoute = path.startsWith('/dashboard');
   const isAdminRoute = path.startsWith('/dashboard/admins');
+  const isUserRoute = path.startsWith('/dashboard/user/clients') ||
+    path.startsWith('/dashboard/user/register');
   const isPublicRoute = [
     '/login',
     '/',
@@ -31,6 +33,8 @@ export default async function proxy(req: NextRequest) {
   } else if (userId && isPublicRoute && path !== '/' && !path.startsWith('/dashboard')) {
     response = NextResponse.redirect(new URL('/dashboard', req.nextUrl));
   } else if (isAdminRoute && userRole !== 'ADMIN') {
+    response = NextResponse.redirect(new URL('/dashboard', req.nextUrl));
+  } else if (isUserRoute && !['ADMIN', 'USER'].includes(userRole!)) {
     response = NextResponse.redirect(new URL('/dashboard', req.nextUrl));
   } else {
     response = NextResponse.next();

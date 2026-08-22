@@ -5,13 +5,13 @@ import { startTransition, useActionState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { handleEmailVerification } from '@/_actions/handleemailverification';
 import { emailVerifiedChecked } from '@/_actions/emailverified';
-import { csrfTokenProps } from '@/_types';
+import { CsrfTokenProps } from '@/_types';
 import { Button } from '@/_components/ui/button';
 import { TextLink } from '@/_components/text-link';
 import { Input } from '@/_components/ui/input';
 import { Label } from '@/_components/ui/label';
 
-export default function VerifyEmailSettingsClient({ csrfToken }: csrfTokenProps) {
+export default function VerifyEmailSettingsClient({ csrfToken }: CsrfTokenProps) {
     const searchParams = useSearchParams();
     const email = searchParams.get('email');
     const token = searchParams.get('token');

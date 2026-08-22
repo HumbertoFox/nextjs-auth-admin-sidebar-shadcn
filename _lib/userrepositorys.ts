@@ -16,7 +16,7 @@ function buildSetClause(data: Record<string, unknown>, allowed: ReadonlySet<stri
     return { setClause, values };
 }
 
-const USER_COMMON_COLUMNS = ` id, name, email, role, avatar, email_verified, deleted_at, created_at, updated_at `;
+const USER_COMMON_COLUMNS = ` id, name, email, role, avatar, email_verified, must_change_password, deleted_at, created_at, updated_at `;
 
 export const userRepository = {
     // -------------------------------------------------------------------------
@@ -189,12 +189,12 @@ export const userRepository = {
     },
 
     // -------------------------------------------------------------------------
-    // Busca session_version para validação de sessão
+    // Busca session_version e must_change_password para validação de sessão
     // -------------------------------------------------------------------------
     async findSessionVersion(id: string, client?: QueryExecutor): Promise<{ session_version: number; must_change_password: boolean } | null> {
         const executor = client ?? pool;
         const result = await executor.query<{ session_version: number; must_change_password: boolean }>(`
-            SELECT session_version
+            SELECT session_version, must_change_password
             FROM users_active
             WHERE id = $1
         `,
@@ -212,14 +212,15 @@ export const userRepository = {
         password: string;
         role: UserRole;
         avatar?: string | null;
+        must_change_password?: boolean;
     }, client?: QueryExecutor): Promise<{ id: string; role: UserRole }> {
         const executor = client ?? pool;
         const result = await executor.query<{ id: string; role: UserRole }>(`
-            INSERT INTO users ( name, email, password, role, avatar )
-            VALUES ( $1, $2, $3, $4, $5 )
+            INSERT INTO users ( name, email, password, role, avatar, must_change_password )
+            VALUES ( $1, $2, $3, $4, $5, $6 )
             RETURNING id, role
         `,
-            [data.name, data.email, data.password, data.role, data.avatar ?? null,]
+            [data.name, data.email, data.password, data.role, data.avatar ?? null, data.must_change_password ?? false]
         );
         return result.rows[0];
     },
@@ -265,11 +266,13 @@ export const userRepository = {
     // -------------------------------------------------------------------------
     async updateByAdminUser(id: string, data: Partial<Pick<User, 'name' | 'email' | 'role' | 'password' | 'avatar'>>, client?: QueryExecutor) {
         const executor = client ?? pool;
-        const { setClause, values } = buildSetClause(data as Record<string, unknown>, ALLOWED_UPDATE_COLUMNS_ADMIN);
-        const passwordClause = 'password' in data ? `, password_changed_at = NOW()` : '';
+        const { setClause, values } = buildSetClause(
+            data as Record<string, unknown>,
+            ALLOWED_UPDATE_COLUMNS_ADMIN
+        );
         const result = await executor.query<User>(`
             UPDATE users
-            SET ${setClause}${passwordClause}
+            SET ${setClause}
             WHERE id = $1
             RETURNING ${USER_COMMON_COLUMNS}
         `,
@@ -286,7 +289,7 @@ export const userRepository = {
         const result = await executor.query<User>(`
             UPDATE users
             SET password = $1,
-            password_changed_at = now()
+                must_change_password = FALSE
             WHERE id = $2
             RETURNING ${USER_COMMON_COLUMNS}
         `,
@@ -368,8 +371,7 @@ export const userRepository = {
         const executor = client ?? pool;
         const result = await executor.query(`
             UPDATE users
-            SET password = $2,
-            password_changed_at = now()
+            SET password = $2
             WHERE email = $1
             RETURNING ${USER_COMMON_COLUMNS}
         `,

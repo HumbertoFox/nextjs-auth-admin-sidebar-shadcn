@@ -161,60 +161,78 @@ export default function RegisterUpdateUserForm({ user, isEdit, titleForm, valueB
                         {state?.errors?.email?.[0] && <InputError message={state.errors.email[0]} />}
                     </div>
 
-                    <div className="grid gap-2">
-                        <Label htmlFor="password">Password</Label>
-                        <div className="relative">
-                            <Input
-                                id="password"
-                                name="password"
-                                autoComplete="off"
-                                type={showPassword ? "text" : "password"}
-                                required={!isEdit}
-                                tabIndex={4}
-                                value={data.password}
-                                onChange={handleChange}
-                                disabled={pending}
-                                placeholder="Password"
-                            />
-                            <button
-                                type="button"
-                                title={showPassword ? "Hide password" : "Show password"}
-                                onClick={toggleShowPassword}
-                                className="btn-icon-toggle"
-                            >
-                                {showPassword ? <Eye /> : <EyeClosed />}
-                            </button>
-                        </div>
-                        <PasswordChecklist password={data.password} />
-                        {state?.errors?.password?.[0] && <InputError message={state.errors.password[0]} />}
-                    </div>
+                    {role === 'ADMIN' ? (
+                        <>
+                            <div className="grid gap-2">
+                                <Label htmlFor="password">Password</Label>
+                                <div className="relative">
+                                    <Input
+                                        id="password"
+                                        name="password"
+                                        autoComplete="off"
+                                        type={showPassword ? "text" : "password"}
+                                        required={!isEdit}
+                                        tabIndex={4}
+                                        value={data.password}
+                                        onChange={handleChange}
+                                        disabled={pending}
+                                        placeholder="Password"
+                                    />
+                                    <button
+                                        type="button"
+                                        title={showPassword ? "Hide password" : "Show password"}
+                                        onClick={toggleShowPassword}
+                                        className="btn-icon-toggle"
+                                    >
+                                        {showPassword ? <Eye /> : <EyeClosed />}
+                                    </button>
+                                </div>
+                                <PasswordChecklist password={data.password} />
+                                {state?.errors?.password?.[0] && <InputError message={state.errors.password[0]} />}
+                            </div>
 
-                    <div className="grid gap-2">
-                        <Label htmlFor="password_confirmation">Confirm your password.</Label>
-                        <div className="relative">
-                            <Input
-                                id="password_confirmation"
-                                name="password_confirmation"
-                                autoComplete="off"
-                                type={showPasswordConfirm ? "text" : "password"}
-                                required={!isEdit}
-                                tabIndex={5}
-                                value={data.password_confirmation}
-                                onChange={handleChange}
-                                disabled={pending}
-                                placeholder="Confirm your password."
+                            <div className="grid gap-2">
+                                <Label htmlFor="password_confirmation">Confirm your password.</Label>
+                                <div className="relative">
+                                    <Input
+                                        id="password_confirmation"
+                                        name="password_confirmation"
+                                        autoComplete="off"
+                                        type={showPasswordConfirm ? "text" : "password"}
+                                        required={!isEdit}
+                                        tabIndex={5}
+                                        value={data.password_confirmation}
+                                        onChange={handleChange}
+                                        disabled={pending}
+                                        placeholder="Confirm your password."
+                                    />
+                                    <button
+                                        type="button"
+                                        title={showPasswordConfirm ? "Hide password" : "Show password"}
+                                        onClick={toggleShowPasswordConfirm}
+                                        className="btn-icon-toggle"
+                                    >
+                                        {showPasswordConfirm ? <Eye /> : <EyeClosed />}
+                                    </button>
+                                </div>
+                                {state?.errors?.password_confirmation?.[0] && <InputError message={state.errors.password_confirmation[0]} />}
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <input
+                                type="hidden"
+                                name="password"
+                                value="Default@Pass123!"
                             />
-                            <button
-                                type="button"
-                                title={showPasswordConfirm ? "Hide password" : "Show password"}
-                                onClick={toggleShowPasswordConfirm}
-                                className="btn-icon-toggle"
-                            >
-                                {showPasswordConfirm ? <Eye /> : <EyeClosed />}
-                            </button>
-                        </div>
-                        {state?.errors?.password_confirmation?.[0] && <InputError message={state.errors.password_confirmation[0]} />}
-                    </div>
+
+                            <input
+                                type="hidden"
+                                name="password_confirmation"
+                                value="Default@Pass123!"
+                            />
+                        </>
+                    )}
 
                     {role === 'ADMIN' ? (
                         <div className="grid gap-2">

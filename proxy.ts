@@ -23,6 +23,8 @@ export default async function proxy(req: NextRequest) {
   const session = await updateSession();
   const userId = session?.userId;
   const userRole = session?.role;
+  const mustChangePassword = session?.mustChangePassword;
+  const isChangePasswordRoute = path === '/dashboard/settings/password';
 
   let response: NextResponse;
 
@@ -30,6 +32,8 @@ export default async function proxy(req: NextRequest) {
     response = NextResponse.redirect(
       new URL(`/login?redirect=${encodeURIComponent(path)}`, req.nextUrl)
     );
+  } else if (userId && mustChangePassword && isProtectedRoute && !isChangePasswordRoute) {
+    response = NextResponse.redirect(new URL('/dashboard/settings/password', req.nextUrl));
   } else if (userId && isPublicRoute && path !== '/' && !path.startsWith('/dashboard')) {
     response = NextResponse.redirect(new URL('/dashboard', req.nextUrl));
   } else if (isAdminRoute && userRole !== 'ADMIN') {

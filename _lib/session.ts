@@ -3,7 +3,7 @@ import { SignJWT, jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { UserRole } from '@/_types';
-import { userRepository } from '@/_lib/userrepositorys';
+import { userRepository } from './userrepositorys';
 
 if (!process.env.AUTH_SECRET) throw new Error('SECRET is not defined');
 
@@ -118,6 +118,7 @@ export async function updateSession() {
     };
     return {
         userId: payload.userId,
-        role: payload.role as UserRole
+        role: payload.role as UserRole,
+        mustChangePassword: user.must_change_password
     };
 }

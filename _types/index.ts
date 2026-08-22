@@ -21,6 +21,7 @@ export type UserDetailsProps = {
     readonly avatar?: string | null;
     readonly role: UserRole;
     readonly email_verified?: string | null;
+    readonly must_change_password: boolean;
     readonly deleted_at?: string | null;
     readonly created_at: string;
     readonly updated_at: string;
@@ -54,11 +55,15 @@ export type ProfileForm = {
     readonly avatar?: string | null;
 }
 
-export type csrfTokenProps = {
+export type CsrfTokenProps = {
     readonly csrfToken?: string;
 }
 
-export type ProfileFormClientProps = ProfileForm & csrfTokenProps & {
+export type UpdatePassuardProps = CsrfTokenProps & {
+    readonly title: string;
+}
+
+export type ProfileFormClientProps = ProfileForm & CsrfTokenProps & {
     readonly mustVerifyEmail: boolean;
 }
 
@@ -113,7 +118,7 @@ export type UserFormProps = ProfileForm & {
     readonly password_confirmation?: string;
 }
 
-export type RegisterFormUserProps = csrfTokenProps & {
+export type RegisterFormUserProps = CsrfTokenProps & {
     user?: UserFormProps;
     readonly role: UserRole;
     readonly isEdit?: boolean;

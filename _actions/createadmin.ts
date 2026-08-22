@@ -86,7 +86,9 @@ export async function createAdmin(_: FormStateCreateAdmin, formData: FormData): 
         const expires_at = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString();
 
         await verificationTokenRepository.create({
-            identifier: email, token: hashToken(rawToken), expires_at
+            identifier: email,
+            token: hashToken(rawToken),
+            expires_at
         }, client);
 
         const encodedEmail = encodeURIComponent(email);

@@ -9,11 +9,11 @@ import { Input } from '@/_components/ui/input';
 import { Label } from '@/_components/ui/label';
 import { loginUser } from '@/_actions/loginuser';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { csrfTokenProps, LoginFormProps } from '@/_types';
+import { CsrfTokenProps, LoginFormProps } from '@/_types';
 import AppLogoIconSvg from '@/_components/app-logo-icon-svg';
 import Link from 'next/link';
 
-export function LoginClient({ csrfToken }: csrfTokenProps) {
+export function LoginClient({ csrfToken }: CsrfTokenProps) {
     const searchParams = useSearchParams();
     const emailFromParams = searchParams.get('email') ?? '';
     const statusFromParams = searchParams.get('status');

@@ -8,13 +8,13 @@ import { Input } from '@/_components/ui/input';
 import { Label } from '@/_components/ui/label';
 import { useSearchParams } from 'next/navigation';
 import { resetPassword } from '@/_actions/resetpassword';
-import { csrfTokenProps } from '@/_types';
+import { CsrfTokenProps } from '@/_types';
 import { TextLink } from '@/_components/text-link';
 import { PasswordChecklist } from '@/_components/password-checklist';
 import Link from 'next/link';
 import AppLogoIconSvg from '@/_components/app-logo-icon-svg';
 
-export default function ResetPasswordClient({ csrfToken }: csrfTokenProps) {
+export default function ResetPasswordClient({ csrfToken }: CsrfTokenProps) {
     const searchParams = useSearchParams();
     const [state, action, pending] = useActionState(resetPassword, undefined);
     const [lastMessage, setLastMessage] = useState(state?.message);

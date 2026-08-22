@@ -46,6 +46,10 @@ export async function createUpdateAdminUser(_: FormStateCreateUpdateAdminUser, f
         }
     }
 
+    const id = formData.get('id') as string | undefined;
+
+    if (sessionUser.role === 'USER' && id) return { warning: 'You do not have permission to update this user.' };
+
     const schema = getSignUpUpdateSchema(formData);
 
     const validatedFields = schema.safeParse({
@@ -56,16 +60,15 @@ export async function createUpdateAdminUser(_: FormStateCreateUpdateAdminUser, f
         password_confirmation: formData.get('password_confirmation') as string,
     });
 
-    const id = formData.get('id') as string | undefined;
-
-    if (sessionUser.role === 'USER' && id) return { warning: 'You do not have permission to update this user.' };
-
     const file = formData.get('file') as File | null;
 
     if (!validatedFields.success) return { errors: z.flattenError(validatedFields.error).fieldErrors };
 
     const { name, email, password, role } = validatedFields.data;
 
+    // -------------------------------------------------------------------------
+    // Validação do avatar antes de abrir a transação
+    // -------------------------------------------------------------------------
     if (file && file.size > 0) {
         if (!(file.type in MIME_TO_EXT)) return { errors: { avatar: ['Only JPEG, PNG, and WebP formats are allowed.'] } };
         if (file.size > MAX_FILE_SIZE) return { errors: { avatar: ['The image size cannot exceed 512 KB.'] } };
@@ -90,6 +93,9 @@ export async function createUpdateAdminUser(_: FormStateCreateUpdateAdminUser, f
     try {
         await client.query('BEGIN');
 
+        // ---------------------------------------------------------------------
+        // UPDATE
+        // ---------------------------------------------------------------------
         if (id) {
             const userInDb = await userRepository.findActiveById(id, client);
             if (!userInDb) {
@@ -121,7 +127,10 @@ export async function createUpdateAdminUser(_: FormStateCreateUpdateAdminUser, f
 
             if (hasFieldChanges) {
                 const result = await userRepository.updateByAdminUser(id, {
-                    name, email, role, ...(hashedPassword && { password: hashedPassword })
+                    name,
+                    email,
+                    role,
+                    ...(hashedPassword && { password: hashedPassword })
                 }, client);
 
                 if (!result) {
@@ -174,10 +183,16 @@ export async function createUpdateAdminUser(_: FormStateCreateUpdateAdminUser, f
                 return { errors: { password: ['The password must be at least 8 characters long.'] } };
             }
 
-            const hashedPassword = await bcrypt.hash(password, 12);
+            const passwordDefalt = process.env.DEFAULT_CLIENT_PASSWORD ? process.env.DEFAULT_CLIENT_PASSWORD : 'Client@123';
+
+            const hashedPassword = await bcrypt.hash(sessionUser.role === 'USER' ? passwordDefalt : password, 12);
 
             const newUser = await userRepository.create({
-                name, email, password: hashedPassword, role
+                name,
+                email,
+                password: hashedPassword,
+                role,
+                must_change_password: sessionUser.role === 'USER'
             }, client);
 
             await verificationTokenRepository.deleteByIdentifier(email, client);

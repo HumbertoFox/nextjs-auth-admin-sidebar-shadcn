@@ -6,13 +6,13 @@ import { TextLink } from '@/_components/text-link';
 import { Button } from '@/_components/ui/button';
 import { useSearchParams } from 'next/navigation';
 import { handleEmailVerification } from '@/_actions/handleemailverification';
-import { csrfTokenProps } from '@/_types';
+import { CsrfTokenProps } from '@/_types';
 import { Label } from '@/_components/ui/label';
 import { Input } from '@/_components/ui/input';
 import Link from 'next/link';
 import AppLogoIconSvg from '@/_components/app-logo-icon-svg';
 
-export default function VerifyEmailClient({ csrfToken }: csrfTokenProps) {
+export default function VerifyEmailClient({ csrfToken }: CsrfTokenProps) {
     const searchParams = useSearchParams();
     const email = searchParams.get('email');
     const token = searchParams.get('token');

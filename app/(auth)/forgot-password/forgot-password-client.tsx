@@ -8,11 +8,11 @@ import { Button } from '@/_components/ui/button';
 import { Input } from '@/_components/ui/input';
 import { Label } from '@/_components/ui/label';
 import { forgotPassword } from '@/_actions/forgotpassword';
-import { csrfTokenProps } from '@/_types';
+import { CsrfTokenProps } from '@/_types';
 import Link from 'next/link';
 import AppLogoIconSvg from '@/_components/app-logo-icon-svg';
 
-export default function ForgotPasswordClient({ csrfToken }: csrfTokenProps) {
+export default function ForgotPasswordClient({ csrfToken }: CsrfTokenProps) {
     const [state, action, pending] = useActionState(forgotPassword, undefined);
     const [data, setData] = useState<Required<{ email: string }>>({ email: '' });
 

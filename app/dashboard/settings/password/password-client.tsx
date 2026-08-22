@@ -7,10 +7,10 @@ import { Input } from '@/_components/ui/input';
 import { Label } from '@/_components/ui/label';
 import { Eye, EyeClosed, LoaderCircle } from 'lucide-react';
 import { updatePassword } from '@/_actions/updatepassword';
-import { csrfTokenProps } from '@/_types';
 import { PasswordChecklist } from '@/_components/password-checklist';
+import { UpdatePassuardProps } from '@/_types';
 
-export default function PasswordPageClient({ csrfToken }: csrfTokenProps) {
+export default function PasswordPageClient({ csrfToken, title }: UpdatePassuardProps) {
     const formRef = useRef<HTMLFormElement>(null);
     const currentPasswordInputRef = useRef<HTMLInputElement>(null);
 
@@ -49,7 +49,7 @@ export default function PasswordPageClient({ csrfToken }: csrfTokenProps) {
         <>
             <div className="space-y-6">
                 <div className="mb-8 my-1 space-y-0.5">
-                    <h2 className="text-xl font-semibold tracking-tight">Update password</h2>
+                    <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
                     <p className="text-muted-foreground text-sm">Make sure your account uses a long, random password to stay secure.</p>
                 </div>
 

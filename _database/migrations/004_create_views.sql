@@ -34,6 +34,7 @@ SELECT
     role,
     avatar,
     email_verified,
+    must_change_password,
     deleted_at,
     created_at,
     updated_at
@@ -57,6 +58,7 @@ SELECT
     role,
     avatar,
     email_verified,
+    must_change_password,
     created_at,
     updated_at
 FROM users
@@ -79,6 +81,7 @@ SELECT
     role,
     avatar,
     email_verified,
+    must_change_password,
     created_at,
     updated_at
 FROM users

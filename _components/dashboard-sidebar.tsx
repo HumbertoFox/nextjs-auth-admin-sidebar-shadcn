@@ -53,7 +53,7 @@ export default function DashboardSidebar({ user, userType, ...props }: Dashboard
             {
                 title: 'Clients',
                 href: '/dashboard/user/clients',
-                icon: UserRoundPlus
+                icon: UsersRound
             }
         ] : [])
     ];

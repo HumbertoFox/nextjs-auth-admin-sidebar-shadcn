@@ -23,7 +23,7 @@ O objetivo é organizar, versionar e aplicar alterações no banco de dados de f
 
 `006_create_verification_tokens.sql` → Cria tabela `verification_tokens`.
 
-`007_create_ratelimits.sql` → Cria tabela `rate_limits` para rate limiting persistido no banco.
+`007_create_rate_limits.sql` → Cria tabela `rate_limits` para rate limiting persistido no banco.
 
 `008_create_permissions.sql` → Cria role `<nome_do_banco>_backend_role` (derivada automaticamente do nome do banco), concede `USAGE` no schema `public`, aplica permissões via `GRANT`/`REVOKE` e políticas RLS para as tabelas `users`, `verification_tokens` e `rate_limits`.
 
@@ -135,7 +135,7 @@ Equivale a `db:reset` seguido de `db:migrate`.
 
 - **Views públicas** (`sem password`): `users_public`, `users_admin_public`, `users_public_active`.
 
-- **View interna** (com `password` e `password_changed_at`, somente backend): `users_active`.
+- **View interna** (com `password`, somente backend): `users_active`.
 
 - **Role**: `<nome_do_banco>_backend_role` — gerada automaticamente a partir do nome do banco definido na `DATABASE_URL`. Acesso exclusivo às tabelas `users`, `verification_tokens` e `rate_limits`, e à view `users_active`.
 
@@ -143,4 +143,4 @@ Equivale a `db:reset` seguido de `db:migrate`.
 
 - **Coluna `session_version`**: contador incrementado a cada login bem-sucedido; usado pelo middleware para invalidar sessões (JWT) de logins anteriores. Detalhes em [Segurança de sessão](../README.md#-segurança-de-sessão) no README.
 
-- **Coluna `password_changed_at`**: registra o timestamp da última troca de senha. É apenas metadado de auditoria — não participa da invalidação de sessão.
+- **Coluna `must_change_password`**: quando `TRUE`, força o usuário a trocar a senha em `/dashboard/settings/password` antes de acessar qualquer outra rota do dashboard (verificado no middleware a cada requisição). Ativada automaticamente quando um `USER` cadastra um `CLIENT` com senha temporária padrão. Detalhes em [Usuários e autenticação](../README.md#-usuários-e-autenticação) no README.

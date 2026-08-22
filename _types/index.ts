@@ -185,7 +185,7 @@ export type User = {
     readonly role: UserRole;
     readonly avatar?: string | null;
     readonly email_verified?: string | null;
-    readonly password_changed_at: string | null;
+    readonly must_change_password: boolean;
     readonly deleted_at?: string | null;
     readonly created_at: string;
     readonly updated_at: string;

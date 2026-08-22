@@ -1,3 +1,5 @@
+[← Voltar ao README](../README.md)
+
 ## Armazenamento de arquivos (Avatar Upload)
 
 O sistema utiliza Vercel Blob Storage para armazenar avatares de usuários.

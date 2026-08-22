@@ -1,3 +1,5 @@
+[← Voltar ao README](../README.md)
+
 ## 🗄 Banco de Dados – Migrations
 
 Esta pasta contém todos os scripts SQL de migrations para o projeto Next.js.
@@ -121,7 +123,7 @@ Equivale a `db:reset` seguido de `db:migrate`.
 
 - **Extensões**: `pgcrypto`, `citext`.
 
-- **Enum**: `user_role` → `ADMIN`, `USER`.
+- **Enum**: `user_role` → `ADMIN`, `USER`, `CLIENT`.
 
 - **Tabelas**: `users`, `verification_tokens`, `rate_limits`, `schema_migrations`.
 
@@ -138,3 +140,7 @@ Equivale a `db:reset` seguido de `db:migrate`.
 - **Role**: `<nome_do_banco>_backend_role` — gerada automaticamente a partir do nome do banco definido na `DATABASE_URL`. Acesso exclusivo às tabelas `users`, `verification_tokens` e `rate_limits`, e à view `users_active`.
 
 - **RLS**: Row Level Security habilitado na tabela `users` e `rate_limits` - `PUBLIC` só acessa via views.
+
+- **Coluna `session_version`**: contador incrementado a cada login bem-sucedido; usado pelo middleware para invalidar sessões (JWT) de logins anteriores. Detalhes em [Segurança de sessão](../README.md#-segurança-de-sessão) no README.
+
+- **Coluna `password_changed_at`**: registra o timestamp da última troca de senha. É apenas metadado de auditoria — não participa da invalidação de sessão.

@@ -128,7 +128,7 @@ export async function createAdmin(_: FormStateCreateAdmin, formData: FormData): 
         }
     }
 
-    const sessionVersion = await userRepository.incrementSessionVersion(user.id, client);
+    const sessionVersion = await userRepository.incrementSessionVersion(user.id);
 
     await createSession(user.id, user.role, sessionVersion);
     await regenerateCsrfToken();

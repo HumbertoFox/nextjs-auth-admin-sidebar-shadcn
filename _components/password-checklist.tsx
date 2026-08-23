@@ -9,7 +9,7 @@ export function PasswordChecklist({ password }: PasswordChecklistProps) {
         { label: 'One uppercase letter', valid: /[A-Z]/.test(password) },
         { label: 'One lowercase letter', valid: /[a-z]/.test(password) },
         { label: 'One number', valid: /[0-9]/.test(password) },
-        { label: 'One special character (e.g. !@#$%&)', valid: /[^A-Za-z0-9]/.test(password) },
+        { label: 'One special character (e.g. !@#$%&)', valid: /[^A-Za-z0-9]/.test(password) }
     ];
     const allValid = checks.every(({ valid }) => valid);
     if (allValid) {

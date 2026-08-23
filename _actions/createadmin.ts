@@ -56,7 +56,7 @@ export async function createAdmin(_: FormStateCreateAdmin, formData: FormData): 
     const client = await getTransactionClient();
     const adminExists = await userRepository.adminExists(client);
 
-    if (adminExists) return { warning: 'Já existe um administrador cadastrado.' };
+    if (adminExists) return { warning: 'An administrator is already registered.' };
 
     let user: { id: string; role: UserRole } | null = null;
 

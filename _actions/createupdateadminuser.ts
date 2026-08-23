@@ -183,7 +183,7 @@ export async function createUpdateAdminUser(_: FormStateCreateUpdateAdminUser, f
                 return { errors: { password: ['The password must be at least 8 characters long.'] } };
             }
 
-            const passwordDefalt = process.env.DEFAULT_CLIENT_PASSWORD ? process.env.DEFAULT_CLIENT_PASSWORD : 'Client@123';
+            const passwordDefalt = process.env.DEFAULT_CLIENT_PASSWORD ?? 'Nextjs@123';
 
             const hashedPassword = await bcrypt.hash(sessionUser.role === 'USER' ? passwordDefalt : password, 12);
 

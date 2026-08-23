@@ -135,7 +135,7 @@ NEXT_URL=""
 | `SMTP_USER`                | Usuário SMTP                                                                                                           |
 | `SMTP_PASS`                | Senha SMTP                                                                                                             |
 | `NEXT_URL`                 | URL base da aplicação (usada para montar links de verificação de e-mail e reset de senha)                              |
-| `DEFAULT_CLIENT_PASSWORD`  | Senha temporária padrão para `CLIENT`s cadastrados por um `USER` (opcional — se omitida, usa `Client@123`)             |
+| `DEFAULT_CLIENT_PASSWORD`  | Senha temporária padrão para `CLIENT`s cadastrados por um `USER` (opcional — se omitida, usa `Nextjs@123`)             |
 
 ---
 
@@ -172,7 +172,7 @@ O `proxy.ts` (middleware) controla o acesso conforme o papel do usuário autenti
 - O **primeiro cadastro feito em `/register` sempre cria um usuário `ADMIN`**; se já existir um administrador no sistema, a rota bloqueia novos cadastros por ali (`Já existe um administrador cadastrado.`).
 - A partir do primeiro `ADMIN`, novos usuários são criados pelo próprio dashboard administrativo, com permissões diferentes por papel:
   - **`ADMIN`** pode cadastrar `ADMIN`, `USER` ou `CLIENT`, definindo a senha diretamente no formulário.
-  - **`USER`** só pode cadastrar `CLIENT`, com uma senha temporária padrão (`DEFAULT_CLIENT_PASSWORD`, ou `Client@123` se a variável não estiver definida) e `must_change_password` ativado — o cliente é obrigado a trocar a senha no primeiro login.
+  - **`USER`** só pode cadastrar `CLIENT`, com uma senha temporária padrão (`DEFAULT_CLIENT_PASSWORD`, ou `Nextjs@123` se a variável não estiver definida) e `must_change_password` ativado — o cliente é obrigado a trocar a senha no primeiro login.
 - Login: e-mail + senha, com verificação obrigatória de e-mail após 30 dias de conta criada.
 - Soft delete de usuários, com reativação disponível para `ADMIN`.
 - Proteção CSRF em todas as Server Actions sensíveis (cookie + token validado a cada submissão).

@@ -1,7 +1,6 @@
 import nodemailer from 'nodemailer';
 
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME;
-const PASSWORD_CLIENT = process.env.DEFAULT_CLIENT_PASSWORD;
 const SMTP_HOST = process.env.SMTP_HOST;
 const SMTP_PORT = Number(process.env.SMTP_PORT);
 const SMTP_USER = process.env.SMTP_USER;
@@ -60,7 +59,7 @@ export const sendEmailVerification = async (to: string, link: string, linkSessio
     }
 }
 
-export const sendCreatedEmailAccountVerification = async (to: string, link: string, linkSession?: string) => {
+export const sendCreatedEmailAccountVerification = async (to: string, link: string, linkSession?: string, defaultPassword?: string) => {
     try {
         const result = await transporter.sendMail({
             from: `${APP_NAME} <${SMTP_USER}>`,
@@ -71,7 +70,10 @@ export const sendCreatedEmailAccountVerification = async (to: string, link: stri
                 <p>Welcome to ${APP_NAME}!</p>
                 <h2>Your account has been created successfully!</h2>
                 <p>Attention! If the email is not confirmed within 30 days, you will not be able to access your account.</p>
-                <p>Your default password is: <strong>${PASSWORD_CLIENT}</strong></p>
+                ${defaultPassword ? `
+                <p>Your default password is: <strong>${defaultPassword}</strong></p>
+                <p>Please change your password after the first login.</p>
+                ` : ''}
                 <p>Please change your password after the first login.</p>
                 <p>Click the link below to confirm your email (The system will open in another browser or the user is not logged in):</p>
                 <a href='${link}'>${link}</a>

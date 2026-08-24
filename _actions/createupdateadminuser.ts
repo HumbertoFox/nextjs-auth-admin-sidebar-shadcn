@@ -92,7 +92,6 @@ export async function createUpdateAdminUser(_: FormStateCreateUpdateAdminUser, f
 
     try {
         await client.query('BEGIN');
-
         // ---------------------------------------------------------------------
         // UPDATE
         // ---------------------------------------------------------------------
@@ -208,7 +207,12 @@ export async function createUpdateAdminUser(_: FormStateCreateUpdateAdminUser, f
             const verifyLink = `${process.env.NEXT_URL}/verify-email?token=${rawToken}&email=${encodedEmail}`;
             const verifySessionLink = `${process.env.NEXT_URL}/dashboard/settings/verify-email?token=${rawToken}&email=${encodedEmail}`;
 
-            const emailResult = await sendCreatedEmailAccountVerification(email, verifyLink, verifySessionLink);
+            const emailResult = await sendCreatedEmailAccountVerification(
+                email,
+                verifyLink,
+                verifySessionLink,
+                sessionUser.role === 'USER' ? passwordDefalt : undefined
+            );
 
             if (!emailResult.ok) {
                 console.error('Failed to send verification email:', emailResult.error);

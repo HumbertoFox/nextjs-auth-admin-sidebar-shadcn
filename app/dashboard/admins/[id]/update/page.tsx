@@ -1,8 +1,8 @@
-import { DashboardSidebarHeader } from '@/_components/dashboard-sidebar-header';
-import RegisterUpdateUserForm from '@/_components/form-register-user';
-import { LoadingRegister } from '@/_components/loadings/loading-register';
-import { getCsrfToken } from '@/_lib/csrf';
-import { userRepository } from '@/_lib/userrepositorys';
+import { DashboardSidebarHeader } from '@/components/dashboard-sidebar-header';
+import RegisterUpdateUserForm from '@/components/form-register-user';
+import { LoadingRegister } from '@/components/loadings/loading-register';
+import { getCsrfToken } from '@/lib/csrf';
+import { userRepository } from '@/lib/userrepositorys';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import { Suspense } from 'react';

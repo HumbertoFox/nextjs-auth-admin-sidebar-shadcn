@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@/_lib/utils';
+import { cn } from '@/lib/utils';
 import { LucideIcon, Monitor, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { HTMLAttributes, useEffect, useState } from 'react';

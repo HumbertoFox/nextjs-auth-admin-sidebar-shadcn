@@ -1,13 +1,13 @@
-import { DashboardSidebarHeader } from '@/_components/dashboard-sidebar-header';
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/_components/ui/pagination';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/_components/ui/table';
-import { getCsrfToken } from '@/_lib/csrf';
-import getVisiblePagination from '@/_lib/getvisiblepagination';
-import { userRepository } from '@/_lib/userrepositorys';
+import { DashboardSidebarHeader } from '@/components/dashboard-sidebar-header';
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { getCsrfToken } from '@/lib/csrf';
+import getVisiblePagination from '@/lib/getvisiblepagination';
+import { userRepository } from '@/lib/userrepositorys';
 import { Metadata } from 'next';
-import { UserActionButtons } from '@/_components/user-action-buttons';
+import { UserActionButtons } from '@/components/user-action-buttons';
 import Image from 'next/image';
-import { getInitials } from '@/_lib/get-initials';
+import { getInitials } from '@/lib/get-initials';
 import { ClockAlert, ClockCheck } from 'lucide-react';
 
 export const generateMetadata = async (): Promise<Metadata> => {

@@ -1,9 +1,9 @@
 'use client';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/_components/ui/avatar';
-import { useInitials } from '@/_hooks/use-initials';
-import { formatDate } from '@/_lib/dataformats';
-import { UserSettingsClientProps } from '@/_types';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useInitials } from '@/hooks/use-initials';
+import { formatDate } from '@/lib/dataformats';
+import { UserSettingsClientProps } from '@/types';
 import { BadgeAlert, BadgeCheck } from 'lucide-react';
 
 export default function SettingsPageClient({ user }: UserSettingsClientProps) {

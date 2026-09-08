@@ -1,6 +1,6 @@
-import { DashboardSidebarHeader } from '@/_components/dashboard-sidebar-header';
-import { getUser } from '@/_lib/dal';
-import { UserDetailsProps, UserRolesZod } from '@/_types';
+import { DashboardSidebarHeader } from '@/components/dashboard-sidebar-header';
+import { getUser } from '@/lib/dal';
+import { UserDetailsProps, UserRolesZod } from '@/types';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 

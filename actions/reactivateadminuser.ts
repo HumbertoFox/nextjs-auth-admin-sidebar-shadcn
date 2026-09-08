@@ -1,0 +1,35 @@
+'use server';
+
+import { regenerateCsrfToken, validateCsrfToken } from '@/lib/csrf';
+import { getUser } from '@/lib/dal';
+import { userRepository } from '@/lib/userrepositorys';
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+
+export async function reactivateAdminUserById(formData: FormData) {
+    const sessionUser = await getUser();
+    if (!sessionUser || sessionUser.role !== 'ADMIN') return redirect('/logout');
+
+    const csrfToken = formData.get('csrfToken') as string;
+    const isValidCsrf = await validateCsrfToken(csrfToken);
+    if (!isValidCsrf) return;
+
+    const userId = formData.get('userId') as string;
+    if (!userId) return;
+
+    const user = await userRepository.reactivateById(userId);
+
+    await regenerateCsrfToken();
+
+    switch (user.role) {
+        case 'ADMIN':
+            revalidatePath('/dashboard/admins');
+            break;
+        case 'USER':
+            revalidatePath('/dashboard/users');
+            break;
+        default:
+            revalidatePath('/dashboard/layout');
+            break;
+    }
+}

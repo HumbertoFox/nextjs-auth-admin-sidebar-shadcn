@@ -1,14 +1,14 @@
 'use client';
 
-import { InputError } from '@/_components/input-error';
+import { InputError } from '@/components/input-error';
 import { useActionState, useEffect, useRef, useState } from 'react';
-import { Button } from '@/_components/ui/button';
-import { Input } from '@/_components/ui/input';
-import { Label } from '@/_components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Eye, EyeClosed, LoaderCircle } from 'lucide-react';
-import { updatePassword } from '@/_actions/updatepassword';
-import { PasswordChecklist } from '@/_components/password-checklist';
-import { UpdatePassuardProps } from '@/_types';
+import { updatePassword } from '@/actions/updatepassword';
+import { PasswordChecklist } from '@/components/password-checklist';
+import { UpdatePassuardProps } from '@/types';
 
 export default function PasswordPageClient({ csrfToken, title }: UpdatePassuardProps) {
     const formRef = useRef<HTMLFormElement>(null);

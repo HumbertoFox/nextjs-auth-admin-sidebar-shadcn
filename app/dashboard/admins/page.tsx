@@ -1,13 +1,13 @@
-import { DashboardSidebarHeader } from '@/_components/dashboard-sidebar-header';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/_components/ui/table';
-import { getCsrfToken } from '@/_lib/csrf';
-import { getUser } from '@/_lib/dal';
-import { userRepository } from '@/_lib/userrepositorys';
-import { UserDetailsProps } from '@/_types';
+import { DashboardSidebarHeader } from '@/components/dashboard-sidebar-header';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { getCsrfToken } from '@/lib/csrf';
+import { getUser } from '@/lib/dal';
+import { userRepository } from '@/lib/userrepositorys';
+import { UserDetailsProps } from '@/types';
 import { Metadata } from 'next';
-import { AdminActionButtons } from '@/_components/admin-action-buttons';
+import { AdminActionButtons } from '@/components/admin-action-buttons';
 import Image from 'next/image';
-import { getInitials } from '@/_lib/get-initials';
+import { getInitials } from '@/lib/get-initials';
 import { ClockAlert, ClockCheck } from 'lucide-react';
 
 export const generateMetadata = async (): Promise<Metadata> => {

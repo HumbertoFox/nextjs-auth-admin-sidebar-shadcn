@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { updateSession } from '@/_lib/session';
+import { updateSession } from '@/lib/session';
 import { randomUUID } from 'crypto';
-import { CSRF_COOKIE_NAME } from './_types';
+import { CSRF_COOKIE_NAME } from './types';
 
 export default async function proxy(req: NextRequest) {
   const path = req.nextUrl.pathname;

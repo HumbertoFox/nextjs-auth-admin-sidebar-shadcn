@@ -1,17 +1,17 @@
 'use client';
 
 import { ChangeEvent, startTransition, useActionState, useEffect, useState } from 'react';
-import DeleteUser from '@/_components/delete-user';
-import { InputError } from '@/_components/input-error';
-import { Button, buttonVariants } from '@/_components/ui/button';
-import { Input } from '@/_components/ui/input';
-import { Label } from '@/_components/ui/label';
-import { updateUser } from '@/_actions/updateuser';
-import { emailVerifiedChecked } from '@/_actions/emailverified';
+import DeleteUser from '@/components/delete-user';
+import { InputError } from '@/components/input-error';
+import { Button, buttonVariants } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { updateUser } from '@/actions/updateuser';
+import { emailVerifiedChecked } from '@/actions/emailverified';
 import Image from 'next/image';
-import { handleImageChange } from '@/_lib/handleimagechange';
-import { ProfileForm, ProfileFormClientProps } from '@/_types';
-import { cn } from '@/_lib/utils';
+import { handleImageChange } from '@/lib/handleimagechange';
+import { ProfileForm, ProfileFormClientProps } from '@/types';
+import { cn } from '@/lib/utils';
 
 const providers: Record<string, { name: string; url: string }> = {
     'gmail.com': { name: 'Gmail', url: 'https://mail.google.com' },

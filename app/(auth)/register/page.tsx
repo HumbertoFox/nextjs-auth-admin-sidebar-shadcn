@@ -1,9 +1,9 @@
-import { adminRepository } from '@/_lib/adminrepository';
+import { adminRepository } from '@/lib/adminrepository';
 import RegisterAdminClient from './form-register-admin-client';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
-import { LoadingRegister } from '@/_components/loadings/loading-register';
-import { getCsrfToken } from '@/_lib/csrf';
+import { LoadingRegister } from '@/components/loadings/loading-register';
+import { getCsrfToken } from '@/lib/csrf';
 import { redirect } from 'next/navigation';
 
 export const generateMetadata = async (): Promise<Metadata> => {

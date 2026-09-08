@@ -2,8 +2,8 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { cn } from '@/_lib/utils';
-import { SidebarNavItemProps } from '@/_types';
+import { cn } from '@/lib/utils';
+import { SidebarNavItemProps } from '@/types';
 
 const sidebarNavItems: SidebarNavItemProps[] = [
     { text: 'Settings', href: '/dashboard/settings' },

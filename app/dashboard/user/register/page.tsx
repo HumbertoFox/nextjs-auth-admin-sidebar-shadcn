@@ -1,10 +1,10 @@
-import { DashboardSidebarHeader } from '@/_components/dashboard-sidebar-header';
+import { DashboardSidebarHeader } from '@/components/dashboard-sidebar-header';
 import { Metadata } from 'next';
-import RegisterUser from '@/_components/form-register-user';
+import RegisterUser from '@/components/form-register-user';
 import { Suspense } from 'react';
-import { LoadingRegister } from '@/_components/loadings/loading-register';
-import { getCsrfToken } from '@/_lib/csrf';
-import { getUser } from '@/_lib/dal';
+import { LoadingRegister } from '@/components/loadings/loading-register';
+import { getCsrfToken } from '@/lib/csrf';
+import { getUser } from '@/lib/dal';
 import { redirect } from 'next/navigation';
 
 export const generateMetadata = async (): Promise<Metadata> => {

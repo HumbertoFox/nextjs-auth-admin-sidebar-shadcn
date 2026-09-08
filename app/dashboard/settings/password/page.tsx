@@ -1,9 +1,9 @@
 import { Metadata } from 'next';
 import PasswordPageClient from './password-client';
-import { LoadingPassword } from '@/_components/loadings/loading-password';
+import { LoadingPassword } from '@/components/loadings/loading-password';
 import { Suspense } from 'react';
-import { getCsrfToken } from '@/_lib/csrf';
-import { getUser } from '@/_lib/dal';
+import { getCsrfToken } from '@/lib/csrf';
+import { getUser } from '@/lib/dal';
 
 export const generateMetadata = async (): Promise<Metadata> => {
     return { title: 'Update Password User' };

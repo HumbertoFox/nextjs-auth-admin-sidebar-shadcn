@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
-import { LoadingForgotPassword } from '@/_components/loadings/loading-forgot-password';
+import { LoadingForgotPassword } from '@/components/loadings/loading-forgot-password';
 import ForgotPasswordClient from './forgot-password-client';
 import { Metadata } from 'next';
-import { getCsrfToken } from '@/_lib/csrf';
+import { getCsrfToken } from '@/lib/csrf';
 
 export const generateMetadata = async (): Promise<Metadata> => {
     return { title: 'Forgot Password' };

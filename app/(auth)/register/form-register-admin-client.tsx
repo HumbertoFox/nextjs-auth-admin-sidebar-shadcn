@@ -2,18 +2,18 @@
 
 import { Eye, EyeClosed, LoaderCircle } from 'lucide-react';
 import { ChangeEvent, useActionState, useState } from 'react';
-import { InputError } from '@/_components/input-error';
-import { Button } from '@/_components/ui/button';
-import { Input } from '@/_components/ui/input';
-import { Label } from '@/_components/ui/label';
-import { createAdmin } from '@/_actions/createadmin';
-import { TextLink } from '@/_components/text-link';
-import { handleImageChange } from '@/_lib/handleimagechange';
+import { InputError } from '@/components/input-error';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { createAdmin } from '@/actions/createadmin';
+import { TextLink } from '@/components/text-link';
+import { handleImageChange } from '@/lib/handleimagechange';
 import Image from 'next/image';
-import { PasswordChecklist } from '@/_components/password-checklist';
+import { PasswordChecklist } from '@/components/password-checklist';
 import Link from 'next/link';
-import AppLogoIconSvg from '@/_components/app-logo-icon-svg';
-import { RegisterFormProps } from '@/_types';
+import AppLogoIconSvg from '@/components/app-logo-icon-svg';
+import { RegisterFormProps } from '@/types';
 
 export default function RegisterAdminClient({ TitleIntl, csrfToken }: { TitleIntl: string; csrfToken?: string; }) {
     const [state, action, pending] = useActionState(createAdmin, undefined);

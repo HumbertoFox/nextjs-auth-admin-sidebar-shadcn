@@ -1,10 +1,10 @@
-import { getUser } from '@/_lib/dal';
+import { getUser } from '@/lib/dal';
 import ProfilePageClient from './profile-client';
-import { UserProfilePageProps } from '@/_types';
+import { UserProfilePageProps } from '@/types';
 import { Metadata } from 'next';
-import { LoadingProfile } from '@/_components/loadings/loading-profile';
+import { LoadingProfile } from '@/components/loadings/loading-profile';
 import { Suspense } from 'react';
-import { getCsrfToken } from '@/_lib/csrf';
+import { getCsrfToken } from '@/lib/csrf';
 
 export const generateMetadata = async (): Promise<Metadata> => {
     return { title: 'Profile of User' };

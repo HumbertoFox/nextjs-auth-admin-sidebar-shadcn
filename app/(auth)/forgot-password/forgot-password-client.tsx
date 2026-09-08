@@ -2,15 +2,15 @@
 
 import { LoaderCircle } from 'lucide-react';
 import { ChangeEvent, useActionState, useState } from 'react';
-import { InputError } from '@/_components/input-error';
-import { TextLink } from '@/_components/text-link';
-import { Button } from '@/_components/ui/button';
-import { Input } from '@/_components/ui/input';
-import { Label } from '@/_components/ui/label';
-import { forgotPassword } from '@/_actions/forgotpassword';
-import { CsrfTokenProps } from '@/_types';
+import { InputError } from '@/components/input-error';
+import { TextLink } from '@/components/text-link';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { forgotPassword } from '@/actions/forgotpassword';
+import { CsrfTokenProps } from '@/types';
 import Link from 'next/link';
-import AppLogoIconSvg from '@/_components/app-logo-icon-svg';
+import AppLogoIconSvg from '@/components/app-logo-icon-svg';
 
 export default function ForgotPasswordClient({ csrfToken }: CsrfTokenProps) {
     const [state, action, pending] = useActionState(forgotPassword, undefined);

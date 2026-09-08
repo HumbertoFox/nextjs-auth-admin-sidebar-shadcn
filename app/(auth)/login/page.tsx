@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import { Metadata } from 'next';
 import { LoginClient } from './login-client';
-import { LoadingLogin } from '@/_components/loadings/loading-login';
-import { getCsrfToken } from '@/_lib/csrf';
-import { adminRepository } from '@/_lib/adminrepository';
+import { LoadingLogin } from '@/components/loadings/loading-login';
+import { getCsrfToken } from '@/lib/csrf';
+import { adminRepository } from '@/lib/adminrepository';
 import { redirect } from 'next/navigation';
 
 export const generateMetadata = async (): Promise<Metadata> => {

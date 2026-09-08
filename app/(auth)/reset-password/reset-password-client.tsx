@@ -2,17 +2,17 @@
 
 import { Eye, EyeClosed, LoaderCircle } from 'lucide-react';
 import { useActionState, useEffect, useState, useRef } from 'react';
-import { InputError } from '@/_components/input-error';
-import { Button } from '@/_components/ui/button';
-import { Input } from '@/_components/ui/input';
-import { Label } from '@/_components/ui/label';
+import { InputError } from '@/components/input-error';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { useSearchParams } from 'next/navigation';
-import { resetPassword } from '@/_actions/resetpassword';
-import { CsrfTokenProps } from '@/_types';
-import { TextLink } from '@/_components/text-link';
-import { PasswordChecklist } from '@/_components/password-checklist';
+import { resetPassword } from '@/actions/resetpassword';
+import { CsrfTokenProps } from '@/types';
+import { TextLink } from '@/components/text-link';
+import { PasswordChecklist } from '@/components/password-checklist';
 import Link from 'next/link';
-import AppLogoIconSvg from '@/_components/app-logo-icon-svg';
+import AppLogoIconSvg from '@/components/app-logo-icon-svg';
 
 export default function ResetPasswordClient({ csrfToken }: CsrfTokenProps) {
     const searchParams = useSearchParams();

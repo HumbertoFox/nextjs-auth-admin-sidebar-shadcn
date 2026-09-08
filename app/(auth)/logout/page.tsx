@@ -1,8 +1,8 @@
 'use client';
 
-import { LoadingLogin } from '@/_components/loadings/loading-login';
+import { LoadingLogin } from '@/components/loadings/loading-login';
 import { useRouter } from 'next/navigation';
-import { deleteSession } from '@/_actions/logoutuser';
+import { deleteSession } from '@/actions/logoutuser';
 import { useEffect } from 'react';
 
 export default function Logout() {

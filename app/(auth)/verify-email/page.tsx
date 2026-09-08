@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 import VerifyEmailClient from './verify-email-client';
-import { LoadingVerifyEmail } from '@/_components/loadings/loading-verify-email';
+import { LoadingVerifyEmail } from '@/components/loadings/loading-verify-email';
 import { Metadata } from 'next';
-import { getCsrfToken } from '@/_lib/csrf';
+import { getCsrfToken } from '@/lib/csrf';
 
 export const generateMetadata = async (): Promise<Metadata> => {
     return { title: 'Verify E-mail' };

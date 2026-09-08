@@ -1,9 +1,9 @@
-import Heading from '@/_components/heading';
-import { Separator } from '@/_components/ui/separator';
+import Heading from '@/components/heading';
+import { Separator } from '@/components/ui/separator';
 import { type PropsWithChildren } from 'react';
 import SettingsLayoutClient from './settings-layout-client';
-import { getUser } from '@/_lib/dal';
-import { UserProfilePageProps } from '@/_types';
+import { getUser } from '@/lib/dal';
+import { UserProfilePageProps } from '@/types';
 
 export default async function SettingsLayout({ children }: PropsWithChildren) {
     const user = await getUser() as UserProfilePageProps;

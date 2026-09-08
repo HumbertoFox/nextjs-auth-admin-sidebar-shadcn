@@ -1,8 +1,8 @@
-import HomeMainComponent from '@/_components/home-main';
-import { buttonVariants } from '@/_components/ui/button';
-import { adminRepository } from '@/_lib/adminrepository';
-import { getSession } from '@/_lib/session';
-import { cn } from '@/_lib/utils';
+import HomeMainComponent from '@/components/home-main';
+import { buttonVariants } from '@/components/ui/button';
+import { adminRepository } from '@/lib/adminrepository';
+import { getSession } from '@/lib/session';
+import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
 export default async function HomePage() {

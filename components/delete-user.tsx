@@ -1,0 +1,110 @@
+'use client';
+
+import { ChangeEvent, useActionState, useEffect, useRef, useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Eye, EyeClosed } from 'lucide-react';
+import { deleteUser } from '@/actions/deleteuser';
+import { useRouter } from 'next/navigation';
+import { InputError } from '@/components/input-error';
+
+export default function DeleteUser({ csrfToken }: { csrfToken?: string; }) {
+    const router = useRouter();
+    const passwordInput = useRef<HTMLInputElement>(null);
+    const [state, action, pending] = useActionState(deleteUser, undefined);
+    const [showPassword, setshowPassword] = useState(false);
+    const [data, setData] = useState<{ password: string }>({ password: '' });
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setData(prev => ({ ...prev, [name]: value }));
+    };
+    const toggleShowPassword = () => setshowPassword(!showPassword);
+    const handleClose = () => setData({ password: '' });
+
+    useEffect(() => {
+        if (state?.message) router.push('/logout');
+    }, [state?.message, router]);
+    return (
+        <div className="space-y-6">
+            <div className="space-y-4 rounded-lg border border-red-100 bg-red-50 p-2 dark:border-red-200/10 dark:bg-red-700/10">
+                <div className="relative space-y-0.5 text-red-600 dark:text-red-100">
+                    <p className="font-medium">Notice</p>
+                    <p className="text-sm">Please proceed with caution, this cannot be undone.</p>
+                </div>
+
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <Button variant="destructive">
+                            Delete account
+                        </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogTitle>Are you sure you want to delete your account?</DialogTitle>
+                        <DialogDescription>
+                            After deleting your account, all your resources and data will also be permanently deleted. Enter your password to confirm that you want to permanently delete your account.
+                        </DialogDescription>
+                        <form
+                            action={action}
+                            className="space-y-6"
+                        >
+                            {/* CSRF Token nativo e invisível no formulário */}
+                            <input
+                                type="hidden"
+                                name="csrfToken"
+                                value={csrfToken ?? ''}
+                            />
+
+                            <div className="grid gap-2">
+                                <Label htmlFor="password" className="sr-only">Password</Label>
+                                <div className="relative">
+                                    <Input
+                                        name="password"
+                                        id="password"
+                                        autoComplete="off"
+                                        type={showPassword ? "text" : "password"}
+                                        ref={passwordInput}
+                                        value={data.password}
+                                        onChange={handleChange}
+                                        placeholder="Password"
+                                    />
+                                    <button
+                                        type="button"
+                                        title={showPassword ? "Hide password" : "Show password"}
+                                        onClick={toggleShowPassword}
+                                        className="btn-icon-toggle"
+                                    >
+                                        {showPassword ? <Eye /> : <EyeClosed />}
+                                    </button>
+                                </div>
+                                {state?.errors?.password?.[0] && <InputError message={state.errors.password[0]} />}
+                            </div>
+
+                            <DialogFooter className="gap-2">
+                                <DialogClose asChild>
+                                    <Button
+                                        variant="secondary"
+                                        onClick={handleClose}
+                                    >
+                                        Cancel
+                                    </Button>
+                                </DialogClose>
+
+                                <Button
+                                    variant="destructive"
+                                    type="submit"
+                                    disabled={pending}
+                                    aria-busy={pending}
+                                >
+                                    Delete account
+                                </Button>
+                            </DialogFooter>
+                        </form>
+                    </DialogContent>
+                </Dialog>
+            </div>
+        </div>
+    );
+}

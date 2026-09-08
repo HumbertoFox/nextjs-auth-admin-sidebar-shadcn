@@ -2,15 +2,15 @@
 
 import { LoaderCircle } from 'lucide-react';
 import { startTransition, useActionState, useEffect, useRef } from 'react';
-import { TextLink } from '@/_components/text-link';
-import { Button } from '@/_components/ui/button';
+import { TextLink } from '@/components/text-link';
+import { Button } from '@/components/ui/button';
 import { useSearchParams } from 'next/navigation';
-import { handleEmailVerification } from '@/_actions/handleemailverification';
-import { CsrfTokenProps } from '@/_types';
-import { Label } from '@/_components/ui/label';
-import { Input } from '@/_components/ui/input';
+import { handleEmailVerification } from '@/actions/handleemailverification';
+import { CsrfTokenProps } from '@/types';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 import Link from 'next/link';
-import AppLogoIconSvg from '@/_components/app-logo-icon-svg';
+import AppLogoIconSvg from '@/components/app-logo-icon-svg';
 
 export default function VerifyEmailClient({ csrfToken }: CsrfTokenProps) {
     const searchParams = useSearchParams();

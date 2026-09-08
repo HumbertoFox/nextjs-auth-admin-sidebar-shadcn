@@ -3,9 +3,9 @@
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import AppLogoIconSvg from '@/_components/app-logo-icon-svg';
+import AppLogoIconSvg from '@/components/app-logo-icon-svg';
 import { Plus } from 'lucide-react';
-import AppLogoIconSvgVercel from '@/_components/app-logo-icon-svg-vercel';
+import AppLogoIconSvgVercel from '@/components/app-logo-icon-svg-vercel';
 import Image from 'next/image';
 
 const APP_NAME = process.env.NEXT_PUBLIC_APP_NAME ?? 'NextJs + Shadcn + Neon';

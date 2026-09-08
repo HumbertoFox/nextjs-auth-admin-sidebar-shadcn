@@ -3,13 +3,13 @@
 import { LoaderCircle } from 'lucide-react';
 import { startTransition, useActionState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { handleEmailVerification } from '@/_actions/handleemailverification';
-import { emailVerifiedChecked } from '@/_actions/emailverified';
-import { CsrfTokenProps } from '@/_types';
-import { Button } from '@/_components/ui/button';
-import { TextLink } from '@/_components/text-link';
-import { Input } from '@/_components/ui/input';
-import { Label } from '@/_components/ui/label';
+import { handleEmailVerification } from '@/actions/handleemailverification';
+import { emailVerifiedChecked } from '@/actions/emailverified';
+import { CsrfTokenProps } from '@/types';
+import { Button } from '@/components/ui/button';
+import { TextLink } from '@/components/text-link';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 export default function VerifyEmailSettingsClient({ csrfToken }: CsrfTokenProps) {
     const searchParams = useSearchParams();

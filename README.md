@@ -204,8 +204,8 @@ O `proxy.ts` (middleware) controla o acesso conforme o papel do usuário autenti
 
 ## 📚 Documentação adicional
 
-- [`_docs/DATABASE.md`](./_docs/DATABASE.md) — estrutura das migrations, scripts de banco e referência de tabelas/views/roles.
-- [`_docs/STORAGE.md`](./_docs/STORAGE.md) — fluxo de upload de avatar com Vercel Blob e validações de segurança.
+- [`_docs/DATABASE.md`](./docs/DATABASE.md) — estrutura das migrations, scripts de banco e referência de tabelas/views/roles.
+- [`_docs/STORAGE.md`](./docs/STORAGE.md) — fluxo de upload de avatar com Vercel Blob e validações de segurança.
 
 ---
 

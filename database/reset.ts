@@ -83,7 +83,7 @@ async function resetDatabase() {
 
         const resetFile = path.join(
             process.cwd(),
-            '_database',
+            'database',
             'migrations',
             '000_reset.sql'
         );

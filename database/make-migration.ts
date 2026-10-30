@@ -12,7 +12,7 @@ function sanitizeDescription(desc: string) {
 }
 
 const migrationsDir = path.join(process.cwd(),
-    '_database',
+    'database',
     'migrations'
 );
 

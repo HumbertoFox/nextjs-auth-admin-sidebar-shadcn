@@ -52,7 +52,7 @@ async function migrate() {
 
         const migrationsDir = path.join(
             process.cwd(),
-            '_database',
+            'database',
             'migrations'
         );
 
